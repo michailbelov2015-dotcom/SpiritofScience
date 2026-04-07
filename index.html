@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дух Науки (Spirit of Science)</title>
+  <meta name="description" content="Дух Науки — новостной сайт про образование и просвещение." />
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --paper: #fbf7f0;
+      --paper-dark: #f0e7d8;
+      --ink: #2f2419;
+      --muted: #6d5b49;
+      --line: #d7cab7;
+      --accent: #7a4f2a;
+      --accent-soft: #e7d8c2;
+      --shadow: 0 10px 30px rgba(69, 47, 27, 0.08);
+      --max-width: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(to bottom, rgba(122,79,42,0.04), rgba(122,79,42,0)),
+        var(--bg);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .site-frame {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: rgba(251, 247, 240, 0.88);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.95rem;
+    }
+
+    .nav a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.2s ease;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 38px 24px 20px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .shelf-card {
+      background: linear-gradient(180deg, #efe4d1, #e4d4bc);
+      border: 1px solid #cfbda4;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 240px;
+    }
+
+    .shelf-card .small-label {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .shelf-card .quote {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      margin: 18px 0;
+    }
+
+    .shelf-card .mark {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .headline-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 30px 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .headline-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 31px,
+          rgba(122, 79, 42, 0.03) 32px
+        );
+      pointer-events: none;
+    }
+
+    .breadcrumbs {
+      position: relative;
+      z-index: 1;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .edition {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      border: 1px solid var(--line);
+      background: var(--paper-dark);
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: clamp(2rem, 4.6vw, 3.5rem);
+      line-height: 1.12;
+      max-width: 900px;
+    }
+
+    .subline {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      font-size: 1.08rem;
+      color: #43352a;
+      max-width: 800px;
+    }
+
+    .main-wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 10px 24px 48px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 28px;
+    }
+
+    .article {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 36px 38px;
+    }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      padding-bottom: 18px;
+      margin-bottom: 26px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .article p {
+      margin: 0 0 20px;
+      font-size: 1.06rem;
+    }
+
+    .article p:first-of-type::first-letter {
+      float: left;
+      font-size: 3.8rem;
+      line-height: 0.95;
+      padding-right: 8px;
+      margin-top: 2px;
+      color: var(--accent);
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .side-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .side-card h2,
+    .side-card h3 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+    }
+
+    .info-list,
+    .link-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .info-list li,
+    .link-list li {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.96rem;
+    }
+
+    .info-list li:last-child,
+    .link-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--paper-dark);
+      font-size: 0.84rem;
+      color: #5c4a38;
+    }
+
+    .newsletter {
+      background: linear-gradient(180deg, #f7efe2, #efe1cd);
+    }
+
+    .newsletter p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .newsletter button {
+      border: none;
+      background: var(--accent);
+      color: #fffaf4;
+      padding: 11px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .footer {
+      margin-top: auto;
+      border-top: 1px solid var(--line);
+      background: #efe6d8;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 28px 24px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .footer h4 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .footer p,
+    .footer li,
+    .footer a {
+      margin: 0;
+      color: #5b4c3d;
+      font-size: 0.94rem;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .copyright {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px 22px;
+      color: #6f604e;
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .main-wrap,
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .shelf-card {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .headline-card,
+      .article {
+        padding: 24px 22px;
+      }
+
+      .hero,
+      .main-wrap {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .footer-inner,
+      .copyright {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-frame">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-title">Дух Науки</div>
+          <div class="brand-subtitle">Spirit of Science · образование и просвещение</div>
+        </div>
+
+        <nav class="nav" aria-label="Навигация по сайту">
+          <a href="#">Новости</a>
+          <a href="#">Образование</a>
+          <a href="#">Просвещение</a>
+          <a href="#">События</a>
+          <a href="#">Редакция</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <aside class="shelf-card">
+          <div class="small-label">Редакционная полка</div>
+          <div class="quote">
+            «Знание становится силой тогда, когда превращается в общее пространство памяти, диалога и будущего».
+          </div>
+          <div class="mark">Тема выпуска: молодежь, история, просвещение</div>
+        </aside>
+
+        <div class="headline-card">
+          <div class="breadcrumbs">Главная / Лента / Образование и просвещение</div>
+          <div class="edition">Выпуск от 01.11.2025</div>
+          <h1>Специальная игра Турнира Знание.Игра прошла в рамках Слета молодежных патриотических объединений Союзного государства</h1>
+          <div class="subline">
+            Материал о специальной игре в Пскове, посвященной 80-летию Победы в Великой Отечественной войне, и о развитии интеллектуальных форматов для молодежи.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="main-wrap">
+      <article class="article">
+        <div class="article-meta">
+          <span><strong>Дата:</strong> 01.11.2025</span>
+          <span><strong>Рубрика:</strong> Новость</span>
+          <span><strong>Издание:</strong> Дух Науки (Spirit of Science)</span>
+        </div>
+
+        <p>
+          17 октября 2025 года в Пскове в рамках Слета-фестиваля молодежных патриотических объединений Союзного государства состоялась специальная игра Турнира Знание.Игра Общества «Знание».
+        </p>
+
+        <p>
+          Игра была посвящена 80-летию Победы в Великой Отечественной войне, которое отмечается в 2025 году. Участники проверили свои знания о героическом прошлом, памятных датах и ключевых сражениях, а также о вкладе народов России и Беларуси в Великую Победу. В интеллектуальном состязании приняли участие 55 представителей молодежных объединений Союзного государства. Игра прошла в очном формате на площадке Псковского государственного университета.
+        </p>
+
+        <p>
+          По итогам игры победителями стали участники, набравшие наибольшее количество баллов. Первое место занял Максим Кулик, второе — Анна Ратушняк, третье — Георгий Симиохин. Обладатель первого места получил набор призов, включающий толстовку, шопер и памятные сувениры с символикой проекта. Участники, занявшие второе и третье места, также получили брендированные подарки, а всем игрокам вручили памятные наборы от Общества «Знание».
+        </p>
+
+        <p>
+          Интеллектуальная игра стала частью программы Слета, который объединил более 250 наставников, специалистов по молодежной политике, лидеров общественных организаций и студенческих сообществ из 30 регионов России и Республики Беларусь. Мероприятие направлено на обмен лучшими практиками, развитие партнерства в сфере патриотического воспитания и укрепление связей между молодежью двух стран. Организатором мероприятия выступает Псковский госуниверситет при поддержке Министерства науки и высшего образования РФ, а также Общество «Знание».
+        </p>
+
+        <p>
+          Напомним, что в сезоне 2025-2026 гг. Турнир Знание.Игра по викторинам продолжается в двух категориях. Для школьников и студентов колледжей отборочные игры проходят каждую среду с июня 2025 г. (всего 23 игры, включая тематические). В финал в Москве в мае 2026 г. выйдут 11 лучших команд, еще 89 коллективов определят региональные финалы. Для студентов вузов игры проходят по пятницам с мая 2025 г. (всего 25 игр), в финал в июне 2026 г. пройдут 25 команд с наивысшими баллами. Кроме того, в онлайн-кубке примет участие 1 000 лучших команд, 75 из которых также будут приглашены на финал. Каждый из очных финалов соберет порядка 500 участников со всей страны.
+        </p>
+
+        <p>
+          В июле 2025 г. также стартовал новый сезон Турнира Знание.Игра по спортивному «Что? Где? Когда?» среди школьников и студентов колледжей. К участию приглашаются команды до 6 человек со всей России – игры проходят онлайн каждые две недели по средам, в 12:00 (мск). Всего состоится 22 отборочных игры, по итогам которых будут определены 15 финалистов. К ним присоединятся победители онлайн-кубка и партнерских турниров. В финале сезона сыграют 75 команд. Продолжается Турнир для всех любителей интеллектуальных игр старше 18 лет. В ходе этого состязания состоялось уже шесть отборочных игр.
+        </p>
+      </article>
+
+      <aside class="sidebar">
+        <section class="side-card">
+          <h2>Карточка материала</h2>
+          <ul class="info-list">
+            <li><strong>Тематика:</strong> образование и просвещение</li>
+            <li><strong>Формат:</strong> новостной материал</li>
+            <li><strong>Площадка события:</strong> Псковский государственный университет</li>
+            <li><strong>Фокус:</strong> историческая память и молодежные инициативы</li>
+          </ul>
+        </section>
+
+        <section class="side-card">
+          <h3>Разделы издания</h3>
+          <ul class="link-list">
+            <li><a href="#">Главные новости дня</a></li>
+            <li><a href="#">Просветительские проекты</a></li>
+            <li><a href="#">Университетская среда</a></li>
+            <li><a href="#">Интеллектуальные турниры</a></li>
+          </ul>
+        </section>
+
+        <section class="side-card">
+          <h3>Ключевые теги</h3>
+          <div class="tags">
+            <span class="tag">Знание.Игра</span>
+            <span class="tag">Общество «Знание»</span>
+            <span class="tag">Псков</span>
+            <span class="tag">Союзное государство</span>
+            <span class="tag">Просвещение</span>
+            <span class="tag">Молодежь</span>
+          </div>
+        </section>
+
+        <section class="side-card newsletter">
+          <h3>Редакционная заметка</h3>
+          <p>
+            Сохраняем важные новости о просвещении, университетах, культурной памяти и молодежных инициативах в одном пространстве.
+          </p>
+          <button type="button">Читать свежие материалы</button>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <h4>Дух Науки</h4>
+          <p>
+            Spirit of Science — новостной сайт об образовании, просвещении, интеллектуальных инициативах и культурной памяти.
+          </p>
+        </div>
+
+        <div>
+          <h4>Контакты</h4>
+          <ul>
+            <li>Email редакции: <a href="mailto:editor@spiritofscience.ru">editor@spiritofscience.ru</a></li>
+            <li>Email для пресс-материалов: <a href="mailto:news@spiritofscience.ru">news@spiritofscience.ru</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Навигация</h4>
+          <ul>
+            <li><a href="#">О проекте</a></li>
+            <li><a href="#">Архив публикаций</a></li>
+            <li><a href="#">Редакционная политика</a></li>
+            <li><a href="#">Обратная связь</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2025 Дух Науки (Spirit of Science). Все права защищены.
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
